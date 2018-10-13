@@ -1,0 +1,8 @@
+extra_refs.tex
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+main.pdf
+supplementary_materials.pdf

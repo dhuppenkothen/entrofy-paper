@@ -1,0 +1,344 @@
+\documentclass[12pt]{article}
+
+% Users of the {thebibliography} environment or BibTeX should use the
+% scicite.sty package, downloadable from *Science* at
+% www.sciencemag.org/about/authors/prep/TeX_help/ .
+% This package should properly format in-text
+% reference calls and reference-list numbers.
+
+\usepackage{scicite}
+
+% Use times if you have the font installed; otherwise, comment out the
+% following line.
+
+\usepackage{times}
+
+% Some standard mathematical notation and figure packages
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{bm}% bold math
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{rotating}
+
+\usepackage{xcite}
+\externalcitedocument{main}
+
+%\usepackage{cleveref}
+
+
+% The preamble here sets up a lot of new/revised commands and
+% environments.  It's annoying, but please do *not* try to strip these
+% out into a separate .sty file (which could lead to the loss of some
+% information when we convert the file to other formats).  Instead, keep
+% them in the preamble of your main LaTeX source file.
+
+
+% The following parameters seem to provide a reasonable page setup.
+
+\topmargin 0.0cm
+\oddsidemargin 0.2cm
+\textwidth 16cm 
+\textheight 21cm
+\footskip 1.0cm
+
+
+%The next command sets up an environment for the abstract to your paper.
+
+\newenvironment{sciabstract}{%
+\begin{quote} \bf}
+{\end{quote}}
+
+
+% If your reference list includes text notes as well as references,
+% include the following line; otherwise, leave it commented out. 
+
+%\renewcommand\refname{References and Notes}
+
+
+
+%%%%%%%%%%%%%%%%% END OF PREAMBLE %%%%%%%%%%%%%%%%
+
+
+
+%\usepackage{aps}
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+%\usepackage[english]{babel}
+%\usepackage[utf8]{inputenc}
+\usepackage{algorithm}
+\usepackage{hyperref}% add hypertext capabilities
+\usepackage{appendix}
+\usepackage{cleveref}
+\usepackage[noend]{algpseudocode}
+\usepackage{color}
+\usepackage{microtype}
+
+%\usepackage[mathlines]{lineno}% Enable numbering of text and display math
+%\linenumbers\relax % Commence numbering lines
+
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{problem}{Problem}
+\newcommand{\project}[1]{\textsl{#1}}
+\newcommand{\entrofy}{\project{Entrofy}}
+\DeclareMathOperator*{\argmax}{argmax}
+% Notes from bmcfee
+\newcommand{\BMN}[1]{\textcolor{blue}{BM:~#1}\normalcolor{}}
+% Notes from dhuppenkothen
+\newcommand{\DHN}[1]{\textcolor{green}{DH:~#1}\normalcolor{}}
+% Notes from lnoren
+\newcommand{\LNN}[1]{\textcolor{red}{LN:~#1}\normalcolor{}}
+
+%\usepackage[showframe,%Uncomment any one of the following lines to test 
+%%scale=0.7, marginratio={1:1, 2:3}, ignoreall,% default settings
+%%text={7in,10in},centering,
+%%margin=1.5in,
+%%total={6.5in,8.75in}, top=1.2in, left=0.9in, includefoot,
+%%height=10in,a5paper,hmargin={3cm,0.8in},
+%]{geometry}
+
+\begin{document}
+
+
+
+% Include your paper's title here
+
+\title{Supplementary Materials for: ``Entrofy Your Cohort: A Data Science Tool to Maximize Diversity''} 
+
+
+% Place the author information here.  Please hand-code the contact
+% information and notecalls; do *not* use \footnote commands.  Let the
+% author contact information appear immediately below the author names
+% as shown.  We would also prefer that you don't change the type-size
+% settings shown here.
+
+% Authors should be listed in order of contribution to the paper beneath the title on the opening page of the manuscript. Use first name, then middle initial (if any), followed by last name with each name separated by commas. The author list should be one single paragraph with no line breaks.
+
+\author
+{Daniela Huppenkothen,${}^{1,2,3\ast}$ Brian McFee,${}^{1}$ Laura Nor\'{e}n${}^{1}$\\
+\\
+\normalsize{${}^{1}$Center for Data Science, New York University, 60 5th Avenue, 7th Floor, New York, NY 10003}\\
+\normalsize{${}^{2}$Center for Cosmology and Particle Physics, New York University}\\
+\normalsize{726 Broadway, 10th Floor, New York, NY 10003}\\
+\normalsize{${}^{3}$DIRAC Institute, Department of Astronomy, University of Washington,}\\
+\normalsize{3910 15th Ave NE, Seattle, WA 98195}\\
+%\normalsize{An Unknown Address, Wherever, ST 00000, USA}\\
+%\normalsize{${}^{2}$Another Unknown Address, Palookaville, ST 99999, USA}\\
+\\
+\normalsize{$^\ast$E-mail:  dhuppenk@uw.edu}
+}
+
+
+% \email{brian.mcfee@nyu.edu}
+
+
+\date{December 28, 2017}% It is always \today, today,
+             %  but any date may be explicitly specified
+
+\maketitle{}
+
+\subsection*{Entrofy is NP-Hard}
+\label{app:nphard}
+The Entrofy optimization problem is closely related to the Hitting Set problem, which is known to be NP-Complete \textit{(34)}.%~\cite{gary1979computers}.
+Here we formally prove that the Entrofy problem is also NP-Hard.
+We first restate the Entrofy problem in its decision form:
+\begin{problem}[Entrofy-decision]\label{prob:entrofy}
+    Given a set $S$ of candidates, a collection of attributes $a_i : S \rightarrow \{0,1\}$, a target size $k \in \mathbb{N}$, a set of target frequencies $p_i$ for each attribute, does there exist a subset $X \subseteq S$ of size $|X|\leq k$ such that
+    \begin{equation}
+        \forall i : \sum_{x \in X}a_i(x) \geq k p_i~?
+    \end{equation}
+\end{problem}
+To prove that \cref{prob:entrofy} is NP-Hard, we reduce from the Hitting Set problem:
+\begin{problem}[Hitting set]\label{prob:hittingset}
+    Given a set $S$, a collection $C \subseteq 2^S$, and a positive integer $k$, does there exist a subset $X \subseteq S$ with $|X| \leq k$ such that for all $C_i \in C$, $|X \cap C_i| \geq 1$?
+\end{problem}
+
+\begin{theorem}
+    The Entrofy decision problem (\cref{prob:entrofy}) is NP-Hard.
+\end{theorem}
+
+\begin{proof}
+    Let $(S, C, k)$ be an instance of Hitting Set.  For each $C_i \in C$, let $a_i(x) = \left[ x \in C_i \right]$, and let $p_i = 1/k$. 
+    Then $(S, \{a_i\}, k, \{p_i\})$ form an instance of the Entrofy problem.  If this instance has a solution $X$, then that solution is also a solution to the Hitting Set problem, since
+    \[
+    \sum_{x\in X} a_i(X) \geq k p_i = 1 \Leftrightarrow |X \cap C_i| \geq 1.
+    \]
+    Similarly, if $X$ is a solution to the Hitting Set problem, then it is also a solution to the corresponding Entrofy instance.
+\end{proof}
+
+Finally, we show that the optimization form of Entrofy is also NP-Hard.
+\begin{problem}[Entrofy-optimization]\label{prob:entrofy-opt}
+    Given inputs $(S, \{a_i\}, k, \{p_i\})$ as in \cref{prob:entrofy}, $\alpha > 0$, and weights $w_i \geq 0$, find a subset $X \subseteq S$ of size $|X|=k$ to maximize
+    \begin{equation}
+        f(X) = \sum_i w_i \min{\left(k p_i, \sum_{x \in X} a_i(x) \right)}^\alpha.\label{eq:entrofy-obj}
+    \end{equation}
+\end{problem}
+
+\begin{theorem}
+    The Entrofy optimization problem (\cref{prob:entrofy-opt}) is NP-Hard.
+\end{theorem}
+\begin{proof}
+    Again, we reduce from Hitting Set.
+    Let $(S, C, k)$ by an instance of \cref{prob:hittingset}.  As before, let $p_i = 1/k$, $a_i$ denote the indicator functions for $C_i$, and let $\alpha=1$ and $w_i=1$ for all $i$ to form an instance of \cref{prob:entrofy-opt}.
+    Let $N = |C|$ denote the number of subsets, and let $X$ be a maximizer of~\eqref{eq:entrofy-obj}, which for this instance simplifies to 
+    \begin{equation}
+        f(X) = \sum_i \min \left(1, \sum_{x\in X} a_i(x) \right) \leq N.
+    \end{equation}
+    Note that each term of the sum is either 0 or 1, and indicates whether each $C_i$ has a non-empty intersection with $X$.
+    If $f(X) < N$, then some $C_i$ is not covered by $X$.
+    Since $X$ maximizes~\eqref{eq:entrofy-obj}, no better solution exists, so there cannot be a satisfying solution to the Hitting Set instance $(S, C, k)$.
+    Otherwise, $f(X) = N$, and $X$ is a valid solution to the Hitting Set instance.
+\end{proof}
+
+
+
+\subsection*{Submodular optimization}
+\begin{definition}[Submodular function]
+A set-function $f : 2^S \rightarrow \mathbb{R}$ is \emph{submodular} if for all $A \subseteq B \subset S$,
+and for all $x \in S \setminus B$,
+\begin{align}
+\Delta f(A, x) \geq \Delta f(B, x) \label{submodular}
+\end{align}
+where $\Delta$ denotes the \emph{marginal gain}:
+\begin{align}
+\Delta g(T, y) := g\left(T \cup \{y\}\right) - g(T).
+\end{align}
+\end{definition}
+
+In plain language, submodular functions exhibit \emph{diminishing returns}: the increase in $f$ due to including a new element in the input set is non-increasing as the input set grows.
+Although efficient algorithms exist to minimize submodular functions, maximizing them is generally NP-Hard \textit{}.%~\cite{bach2013learning}.
+If in addition to being submodular, the function is also monotone and non-negative, then a greedy maximization algorithm is guaranteed to find a solution $X$ such that $f(X) \geq (1 - e^{-1}) f^*$, where $f^*$ is the optimal solution value.
+\begin{definition}[Monotone set-function]
+    A set-function $f : 2^S \rightarrow \mathbb{R}$ is \emph{monotone} if 
+    \[
+        A \subseteq B \subseteq S \quad\Rightarrow\quad f(A) \leq f(B).
+    \]
+\end{definition}
+Note, however, the maximization of monotone submodular functions remains NP-Hard.
+
+\subsubsection*{Submodularity of Entrofy\label{app:submodular}}
+In this section, we prove that the Entrofy optimization objective~\eqref{eq:entrofy-obj} is monotone, non-negative, and submodular, and therefore admits an efficient greedy approximation algorithm.
+We first demonstrate that the individual attribute objectives \[f_i(X) = \min\left(k p_i, \sum_{x \in X}a_i(x)\right)\] satisfy these conditions, and then show that the non-negative weighted combination preserves these conditions.
+For ease of exposition, we will assume that $kp_i$ is integral, though the results easily generalize to the non-integral case.
+\begin{lemma}
+    $f_i$ is non-negative and monotone.\label{lem:monotone}
+\end{lemma}
+\begin{proof}
+    Clearly, $f_i$ is non-negative, since it is the minimum of two non-negative quantities.
+    Let $A \subseteq B \subseteq S$.
+    Then $\sum_{x \in A} a_i(x) \leq \sum_{x \in B} a_i(x)$ (because $a_i \geq 0$), so
+    \begin{align*}
+    f_i(A) &= \min\left( k p_i, \sum_{x \in A}a_i(x)\right)\\
+           &\leq \min\left(k p_i, \sum_{x \in B}a_i(x)\right)\\
+           &= f_i(B).
+    \end{align*}
+\end{proof}
+
+\begin{lemma}
+    $f_i$ is submodular.\label{lem:submod}
+\end{lemma}
+\begin{proof}
+Let $A \subseteq B \subset S$, and let $x \in S \setminus B$.  This results in exactly one of three cases:
+\begin{itemize}
+\item If $f_i(A) < f_i(B) < kp_i$, then
+$$
+\Delta f_i(A, x) = \Delta f_i(B, x) = a_i(x)
+$$
+Neither $A$ nor $B$ saturates $f_i$, so including $x$ changes both by $a_i(x)$.
+\item If $f_i(A) = f_i(B) = kp_i$, then 
+$$
+\Delta f_i(A, x) = \Delta f_i(B, x) = 0
+$$
+Both $A$ and $B$ saturate $f_i$, so including $x$ has no effect on either.
+\item If $f_i(A) < f_i(B) = kp_i$, then 
+$$
+\Delta f_i(A, x) = a_i(x) \geq \Delta f_i(B, x) = 0
+$$
+$B$ saturates $f_i$ but $A$ does not: including $x$ increases the left-hand side by $a_i(x)$ and has no effect on the right-hand side.
+\end{itemize}
+In all three cases, the marginal gain condition~\eqref{submodular} is satisfied, so $f_i$ is submodular.
+\end{proof}
+
+\begin{lemma}
+    For $0 < \alpha \leq 1$, $f_i^\alpha$ is non-negative, monotone, and submodular.\label{lem:compress}
+\end{lemma}
+\begin{proof}
+    Since $f_i$ is non-negative, raising it a positive power $\alpha$ preserves non-negativity.
+    Monotonicity and submodularity follows from the fact that submodular functions are closed under monotone concave transformations~\cite[Theorem 1]{lin2011class}.
+\end{proof}
+
+\begin{theorem}[Entrofy submodularity]
+The Entrofy objective ${f(X)=\sum_i w_i {f_i(X)}^\alpha}$ is non-negative, monotone, and submodular.
+\end{theorem}
+\begin{proof}
+    \Cref{lem:monotone,lem:submod,lem:compress} establish that the individual attribute objectives satisfy these conditions.
+    Since these conditions are preserved by non-negative linear combination~\cite[Section 2.1]{bach2013learning}, the total objective $f$ is non-negative, monotone, and submodular.
+\end{proof}
+
+\clearpage
+
+\subsection*{An Example Selection Procedure}
+
+In the following, we lay out in more detail the selection procedure for Astro Hack Week 2017 and give the reader a practical advice of how this selection can be performed.
+
+\subsubsection*{Questions}
+
+Designing the application form is the most important and crucial step in the entire selection procedure, and the design itself should reflect the workshop type (e.g.\ a summer school might accept a different mix of researchers at different career stages than an unconference), the goals of the workshop itself and the organizers' values. In our experience as organizers, it is here that fruitful discussions about the workshop as a whole take place, and help shape not only the set of participants, but also the overall workshop agenda. 
+
+For Astro Hack Week, we include two categories of questions aside from personal data (e.g. name, e-mail address, institution): largely open-ended questions probing applicants' background and motivation, and multiple-choice questions about relevant demographic categories (e.g. gender and racial/ethnic background) as well as information specific to the workshop. For example, we asked participants about their subfield within astronomy, as well as to self-report their skill level in a range of methods relevant to Astro Hack Week, such as statistics, machine learning and programming. 
+
+Questions asking participants to self-report skill levels must be approached carefully, because terms like ``beginner'', ``'intermediate'' or ``expert'' have no absolute scaling and are thus subject to personal interpretation. Instead, we suggest calibrating skill levels on concrete milestones. For Astro Hack Week, we instead asked participants for example whether they had done machine learning in class work, used it in their research or had implemented their own methods. These questions should largely be phrased as multiple-choice questions (often with an option for candidates who do not fall into any of the categories). Answers to open-ended questions must be coded into numerical values before use in Entrofy, and might allow unintentional biases to enter the procedure.
+
+%\item{On the most fundamental level, requires decision on which categories to use during selection, which depends entirely on the design and aim of the workshop: a conference summarizing a whole field might wish to make sure there is equal representation from all sub-fields, while a summer school might want to skew attendance heavily towards graduate students and postdoctoral fellows. }
+%\item{In practical term: required to make that decision *before* opening applications: can only select on information collected during the application/registration phase.}
+%\item{open-ended questions are Bad! Require coding up responses, which allows for additional bias to creep in.}
+%\item{Make responses as specific as possible. For example, instead of asking for "beginner", "intermediate" or "expert" programming experience, choose specific measures like "have used programming in research". }
+%\item{Each category requires setting target fractions. Again, this depends on the aims of the workshop, thus are specific to that conference. Should do this *before* looking at the input set. The reasoning about the ideal workshop should be independent of the set of actual applicants, unless the workshop should just reflect the proportions of those who apply. But then entrofy is not necessary and one could just pick randomly. Target fractions might need post-hoc adjustment (e.g. if categories are empty), but the general design should be independent of the data.}
+%\item{Limit pre-selection. Pre-selecting applicants is explicitly allowed in Entrofy, and can be useful for accepting e.g. invited speakers, members of the organizing committee or other participants required to be there. The reason for adding those to the Entrofy sample as pre-selected is that their attributes will still be counted in the final distributions. In other words, if the pre-selected cohort is very different from the specified targets, the algorithm will attempt to balance within the rest of the cohort to be accepted. The larger the pre-selected cohort (and the more different it is from the targets), the harder it will be to select a set of participants that fulfills the targets, which ultimately defies the point of the algorithm. }
+
+\subsubsection*{Defining Target Distributions}
+
+For questions to be used within Entrofy, we recommend discussing the values for target distribution for each category \textit{before} examining any of the applicants, unless Entrofy is used to reproduce input distribution for that category (which effectively amounts to a purely random selection in that category). Target distributions should be set according to the goals of the workshop, which are usually largely independent of the set of available applicants. It is important to note that these targets are entirely at the discretion of the selection committee, and in many cases, there likely is no ``correct'' answer. Targets overall should align with workshop goals and be transparent in the sense that the committee should be able to explain the reasoning behind them. 
+
+For example, at Astro Hack Week, we explicitly over-selected participants from gender and racial minorities compared to the overall population within astronomy, based on the reasoning that one goal of the workshop was to increase representation of underrepresented groups within the technical fields of astronomy. Similarly, we set target fractions for the career stages of participants very deliberately: accepting $8\%$ undergraduate participants allows very early-stage researchers to participate in the workshop and build valuable experiences and connections early on. This fraction was designed to be small enough not to dominate the workshop, but large enough (amounting to ~4 out of 50 participants) for undergraduate participants to feel part of a representative group, rather than outliers. Targets for graduate students, postdoctoral fellows and faculty members ($30\%$, $30\%$ and $12\%$, respectively) were set to maximize exchange and learning between the different academic career stages. Finally, we accepted $10\%$ research staff and $10\%$ non-academic participants to allow for mixing between university and non-university staff as well as allow participants to build connection to industry.
+Similar reasoning was applied to all categories, aided significantly by earlier discussions about the application form and how the selection procedure relates to the overall goals of the workshop.
+
+\subsubsection*{Initial Selection}
+
+We primarily used the responses to open-ended questions (blinded to personal characteristics) to understand applicants' motivations and decide whether they would be an overall good match for the workshop. At Astro Hack Week, we cast that net fairly wide, and only excluded duplicate applications as well as obvious spam responses (e.g. an Android developer aiming to develop a clearly astronomy-unrelated game for mobile phones). For other workshops that may be more narrowly defined, one approach could be to have every member of the organizing committee submit a score for each applicant (or, alternatively, a simple yes/no decision on each applicant), and then decide on a cut-off for acceptable candidates. It should be noted that this cut-off should not be too stringent, since committees should expect a large variance in individual decisions for a given applicant~\cite{grove1996}. At this stage, the committee may also examine scores for patterns indicating previously undetected biases and discuss cases with especially divergent scores. If the workshop or conference includes contributed talks or papers, they could be similarly included in this stage of decision making. Committees may also decide to vary their thresholds for acceptability in order to gauge the effects of that threshold on outcomes during the automatic stage of the selection.
+
+Whether to blind this stage to applicants' demographic characteristics is a difficult decision. As we have discussed in the main text, unblinded scoring may lead to more severely biased decision making, while in some cases one may wish to include demographic characteristics as factors in the decision as a form of affirmative action. At Astro Hack Week, we chose to blind ourselves to the demographic characteristics of our applicants because the workshop was specifically aimed at a wide range of skill levels, and we therefore considered the risk of bias in an unblinded selection to be higher than excluding potential participants because of their background. However, we also aimed to remain vigilant about other sources of bias, for example in favour of native English speakers compared to non-native speakers.
+
+It is possible to pre-select candidates during this stage. For Astro Hack Week, we automatically pre-selected the organizing committee, invited tutorial teachers and several key participants. The latter were pre-selected after the initial selection stage, primarily to ensure the presence of experienced facilitators during Astro Hack Week. At Astro Hack Week, we limited the number of pre-selected participants to $20\%$ in order to not bias the overall selection too much. 
+
+At this stage, we also surveyed the distributions of multiple choice questions to be included in Entrofy. In some cases, this required re-evaluation of the targets, especially in cases where some categories are not represented at all (e.g. for some of the larger categories with many options, like academic subfield) or very sparsely. In these cases, we have sometimes combined attributes to be slightly broader. Many multiple-choice questions also allowed for an ``other'' option in case applicants did not fall into any of the pre-defined categories. Evaluating these responses occasionally required creation of new attributes within certain categories and a subsequent re-evaluation of previously set targets.
+
+\subsubsection*{Entrofy Selection}
+
+We used the results of the initial selection stage combined with the targets we defined to run Entrofy and select the remaining cohort of participants. Note that pre-selected participants were included as Entrofy as well. While they are automatically selected into the final set of participants, their attributes nevertheless count towards the targets we set. If we had pre-selected participants who are overrepresentative of the targets in one or several categories, the algorithm automatically tries to balance this overselection. 
+
+\subsubsection*{Evaluation}
+
+There are different ways in which organizers may wish to evaluate the validity and robustness of their selection. As shown in Figure (4), we found figures comparing the input set, the targets and the output set particularly helpful. These plots allowed us to quickly diagnose how closely the selected cohort matched the target, and check for categories with a large mismatch between the pool of applicants and our envisioned targets. Because the initial stage of selection was fairly unrestrictive, we have not performed the same exercise between the overall pool of candidates and those selected during the first step. In more restrictive selection problems, doing so might help diagnose where candidates with certain attributes are preferentially selected or rejected initially, and thus help in controlling for bias during the first stage.
+
+During the Astro Hack Week selection, we have also included figures that plot representation in both the full pool of candidates as well as the selected cohort for combinations of different categories. This was particularly helpful to diagnose strong correlations in our pool of applicants: for example, we wanted participants identifying as gender or racial minorities to be represented at all career stage, such that junior participants would have a diverse set of role models available. If this had not been the case, we could have re-evaluated these categories and combined them into a new category that includes combinations of attributes relating to gender, race/ethnicity and career stage.
+
+As mentioned in the main text, these diagnostics have been helpful beyond the selection procedure. In particular, they have helped us with targeting outreach initiatives ahead of subsequent workshops, made us conscious of recruiting a diverse set of tutorial teachers, and have been used in funding applications aimed at boosting the attendance of junior participants, particularly from underrepresented minorities. 
+
+\subsubsection*{Transparency}
+
+One of the primary goals of this procedure is to provide transparency about the decision making process to participants, but explicitly also to those that were rejected. 
+In the context of the workshops that have used Entrofy as part of their selection, we have experimented with different formats of reporting. At all workshops, we communicated the basics of the selection procedure at the application stage via the application form. At the workshop itself, we provided more details about the selection procedure, usually on the first day. For Astro Hack Week, we have in the past documented and published the procedure as part of a series of blog posts. For another workshop, we have also published records of the procedure in the form of a Jupyter notebook including a randomized simulated data set based on the original input set (to preserve privacy) and the original code used to perform the Entrofy selection. 
+
+\end{document}
+
