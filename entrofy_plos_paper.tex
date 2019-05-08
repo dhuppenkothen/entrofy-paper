@@ -220,7 +220,7 @@ Laura Nor\'{e}n\textsuperscript{4\Yinyang}
 \\
 \textbf{2} Center for Data Science, New York University,  60 5th Ave., New York, NY 10003
 \\
-\textbf{3} Music and Audio Research Lab, New York University, [ADD ADDRESS?]
+\textbf{3} Music and Audio Research Lab, New York University, 35 West 4th St., New York, NY 10003
 \\
 \textbf{4} Obsidian Security, 888 San Clemente Drive, Newport Beach, 92660
 \\
@@ -249,12 +249,12 @@ Laura Nor\'{e}n\textsuperscript{4\Yinyang}
 %\textpilcrow Membership list can be found in the Acknowledgments section.
 
 % Use the asterisk to denote corresponding authorship and provide email address in note below.
-* correspondingauthor@institute.edu
+* dhuppenk@uw.edu
 
 \end{flushleft}
 % Please keep the abstract below 300 words
 \section*{Abstract}
-Selecting a cohort from a set of candidates is a common task within and beyond academia. Admitting students, awarding grants, choosing speakers for a conference or workshop are situations where human biases may affect the make-up of the final cohort. In this paper, we propose a new algorithm, Entrofy, designed to be part of a larger decision making strategy aimed at making cohort selection as just, quantitative, transparent, and accountable as possible.
+Selecting a cohort from a set of candidates is a common task within and beyond academia. Admitting students, awarding grants, choosing speakers for a conference are situations where human biases may affect the make-up of the final cohort. In this paper, we propose a new algorithm, Entrofy, designed to be part of a larger decision making strategy aimed at making cohort selection as just, quantitative, transparent, and accountable as possible.
 We suggest this algorithm be embedded in a two-step selection procedure. First, all application materials are stripped of names, institutional affiliations, and other markers of identity that could induce conscious or sub-conscious bias. During blind review, the committee selects all applicants, submissions, or other entities that meet their merit-based criteria. This often yields a cohort larger than the admissible number.
 In the second stage, the target cohort can be chosen from this meritorious pool via a new algorithm and software tool called Entrofy. Entrofy optimizes differences across an assignable set of categories selected by the human committee. Criteria could include gender, academic discipline, home country, experience with certain technologies, or other quantifiable characteristics. The Entrofy algorithm then yields the computational maximization of diversity by solving the tie-breaking problem with provable performance guarantees. We show how Entrofy selects cohorts according to pre-determined characteristics in simulated sets of applications and demonstrate its use in a case study of Astro Hack Week. 
 This two stage cohort selection process allows human judgment to prevail when assessing merit, but assigns the assessment of diversity to a computational process less likely to be beset by human bias. Importantly, the stage at which diversity assessments occur is fully transparent and auditable with Entrofy. Splitting merit and diversity considerations into their own assessment stages makes it easier to explain why a given candidate was selected or rejected. 
@@ -300,6 +300,11 @@ If the pool of admissible candidates exceeds the number of available spots, the 
 
 \section*{Methods}
 \label{sec:algorithm}
+
+\subsection*{Ethics Statement}
+The experimental procedures were approved by the Institutional Review Board at New York University. The questionnaire results referenced in the Discussion section were obtained during a (voluntary) online post-workshop surveys in 2016 and 2017, respectively. Workshop participants gave consent online using an IRB-compliant form before beginning the survey. 
+
+\subsection{Overview}
 
 Given a pool of candidates, a collection of attributes describing each candidate, and target proportions of each attribute for the selected set, the goal is to find a subset of candidates whose statistics match the target proportions as closely as possible. 
 For this purpose, we define an objective function that measures the relative improvement of adding a given candidate to the pool of selected participants, compared to the target selection criteria. Starting either from a group of pre-selected (e.g.\ invited) participants, or a random position, the algorithm runs sequentially through all candidates and computes the relative improvement of adding that candidate to the selected set compared to the target categories. The candidate with the highest improvement is added to the participant set, and the algorithm continues until the pre-defined number of participants is reached.
@@ -363,7 +368,7 @@ The greedy selection algorithm is therefore more likely to select elements which
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=3.5in]{concave}
+\includegraphics[width=3.5in]{Fig1.eps}
 \caption{Raising $f_i$ to the $0 < \alpha \leq 1$ power leads to diminishing marginal gains as the selected set approaches the target $kp_i$.}
 \label{fig:concave}
 \end{center}
@@ -453,7 +458,7 @@ In Fig \ref{fig:experiments1}, we present the results of our simulations. Here, 
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=3.5in]{f1.pdf}
+\includegraphics[width=3.5in]{Fig2.eps}
 \caption{Failure rates for simulations with different parameters. On the x-axis, we plot the number of random samples added to each solution $n_\mathrm{random}$ to simulate noise in the data. On the y-axis, we show the number of participants in the output set $n_\mathrm{out}$ (equivalent to the size of the solution embedded in the whole data set). The size of the data set for each simulation is the sum of $n_\mathrm{out}$ and $n_\mathrm{random}$. For all simulations, the target fractions of the output set as well as the random fractions of one category are kept constant at $0$, while values of both target and random fractions are varied for the other category. The left-hand column shows results where the target fraction is kept constant at $0.5$, while the random fraction is varied between $0$ and $0.5$. In the left-hand column, we show similar plots for a target fraction of $0.1$ instead.} 
 \label{fig:experiments1}
 \end{center}
@@ -476,7 +481,7 @@ In Fig \ref{fig:experiments1}, we present the results of these simulations. Cons
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=5in]{f2.pdf}
+\includegraphics[width=5in]{Fig3.eps}
 \caption{The percentage of failed \entrofy\ runs versus the number of 
 trials used to find the optimal solution. This simulation uses an optimal solution of $100$ participants in a set of $105$ candidates, where the target fractions of $0.5$ for the defining attribute are dissimilar from those of the set of candidates added to the solution (input fraction $0.1$). We choose $\alpha = 0.5$ and compute the percentage of failures as a function of the number of \textit{Entrofy} runs $n_\mathrm{trials}$ on each simulated data set, using $100$ simulations for each value of $n_\mathrm{trials}$.
 For $10$ or more trial runs, \entrofy\ almost always finds the optimal solution.}
@@ -488,7 +493,7 @@ For $10$ or more trial runs, \entrofy\ almost always finds the optimal solution.
 \subsection*{Case Study: Astro Hack Week}
 \label{sec:casestudy}
 
-Astro Hack Week is a five-day workshop started in 2014 that recurs annually, with four completed workshops so far. It focuses on data-intensive research in astronomy and has multiple goals: education of the community in the most recent data analysis methods, communicating and encouraging best practices for research, fostering active collaborations and peer learning within astronomy and between astronomy and adjacent disciplines, and networking (for more details, see \citealt{hackweekpaper}). Because of its highly interactive nature and its over-subscription by a factor of $>2$, cohort selection is a central problem during conference organization. For the events in 2016 and 2017, we adopted the approach advocated in this paper: a staggered procedure of quality control followed by optimization based on the goals of the conference. Applicants were informed about the purpose and use of the data being gathered, and filled out a questionnaire including questions probing their motivation and goals for Astro Hack Week, as well as questions relating to their data science-related skills and (optionally) their demographic background.
+Astro Hack Week is a five-day workshop started in 2014 that recurs annually, with four completed workshops so far. It focuses on data-intensive research in astronomy and has multiple goals: education of the community in the most recent data analysis methods, communicating and encouraging best practices for research, fostering active collaborations and peer learning within astronomy and between astronomy and adjacent disciplines, and networking (for more details, see \citep{hackweekpaper}). Because of its highly interactive nature and its over-subscription by a factor of $>2$, cohort selection is a central problem during conference organization. For the events in 2016 and 2017, we adopted the approach advocated in this paper: a staggered procedure of quality control followed by optimization based on the goals of the conference. Applicants were informed about the purpose and use of the data being gathered, and filled out a questionnaire including questions probing their motivation and goals for Astro Hack Week, as well as questions relating to their data science-related skills and (optionally) their demographic background.
 
 In the first step, we performed a blind selection of candidates (e.g. their names and institutional affiliations were unavailable to reviewers) based on their responses to several questions about their motivation and goals for their attendance to Astro Hack Week. This served largely to remove spam responses in our openly available online registration form, and remove candidates whose goals diverged strongly from that of the workshop. In total, we selected all 110 candidates in 2016 (155 out of 160 candidates in 2017) in this step, since the workshop has few prerequisites and rejections were only performed for duplicate applications and the rare spam application.
 
@@ -507,8 +512,8 @@ The latter is due to the fact that despite the larger candidate set in 2017, the
 
 \begin{figure*}[h!]
 \begin{center}
-\includegraphics[width=15cm]{stats_results2016.png}
-\includegraphics[width=15cm]{stats_results2017.png}
+\includegraphics[width=15cm]{Fig4a.eps}
+\includegraphics[width=15cm]{Fig4b.eps}
 \caption{This figure shows responses to a question from the registration form asking candidates to self-report their statistics knowledge before the workshop, for both the 2016 workshop (upper panel) and the 2017 workshop (lower panel). In blue, we plot the mean and standard deviation of 1000 trials, where the selection was performed randomly.%In blue, we plot the fraction of candidates for each answer in the candidate set before performing automated selection. 
 For comparison, the fraction of answers from the selected cohort is shown in green, and the targets set by the organizing committee based on the workshop goals is plotted as a dashed black line.
 In both cases, the selected cohort is notably closer to the pre-defined targets than the original candidate set, though the effect is much stronger in the 2016 case.
@@ -530,6 +535,7 @@ Additionally, differences may result from trying to globally optimize all eight 
 The concave transformation weights participants higher if they improve a category still far from the target, sometimes at the expense of introducing small deviations in other categories.
 Note also, that selected candidates declining attendance necessitate re-selection (also performed with Entrofy).
 If candidates preferentially drop out in certain categories that are already underrepresented, this may exacerbate the distance between participant set and pre-defined targets.
+
 
 \section*{Discussion}
 \label{sec:discussion}
@@ -561,7 +567,9 @@ With respect to Astro Hack Week, the committee used data visualizations made as 
 This in turn led to targeted outreach efforts toward those groups, as well as directed fund-raising efforts to aid students from disadvantaged backgrounds and smaller institutions.  
 
 %% transparency and accountability
-Third, it provides algorithmic transparency and accountability for the selection procedure. In the case study of Astro Hack Week during which participants were told that Entrofy had been part of the selection procedure, 82 percent agreed with the statement "I think that using an algorithm for selection makes the process more transparent" (see Table \ref{tab:outcomes}). Similarly, 81 percent reported agreement with the statement, "I believe the selection for AstroHackWeek was fair". Because academic meetings are an important venue for discussion, collaboration, and career development, both conference organizers and research communities have a vested interest in making conferences and workshops equitable to candidates from all backgrounds and at all stages in their careers. An overwhelming 97 percent of respondents in our case study agreed with the statement, "I think Astro Hack Week benefitted from a wide range of backgrounds and experiences of the attendees."
+Third, it provides algorithmic transparency and accountability for the selection procedure. In the case study of Astro Hack Week during which participants were told that Entrofy had been part of the selection procedure, an online survey was administered at the end of the workshop to gauge participants' 
+
+82 percent agreed with the statement "I think that using an algorithm for selection makes the process more transparent" (see Table \ref{tab:outcomes}). Similarly, 81 percent reported agreement with the statement, "I believe the selection for AstroHackWeek was fair". Because academic meetings are an important venue for discussion, collaboration, and career development, both conference organizers and research communities have a vested interest in making conferences and workshops equitable to candidates from all backgrounds and at all stages in their careers. An overwhelming 97 percent of respondents in our case study agreed with the statement, "I think Astro Hack Week benefitted from a wide range of backgrounds and experiences of the attendees."
 The underlying justification for using a two-stage selection process is likely to apply to many other situations where decision makers must select a subset of candidates, including hiring, speaker selection for seminar series, and degree program admissions procedures.
 Splitting the selection into two steps and framing the second part as a clearly defined mathematical procedure provides this transparency: if a candidate is rejected, that decision can be traced back to either the merit-based selection stage or the randomized tie-breaking stage (Entrofy).
 
@@ -603,12 +611,12 @@ It is worth noting explicitly that if the initial recruitment and/or selection a
 In other words, in cases where gender parity is desired, but the recruitment and/or blind review process are unable to attract a sufficient number of qualified women, Entrofy will not be able to deliver a cohort with gender parity.
 When the initial selection for merit prefers participants with certain characteristics at the expense of others, it will likely make finding an optimal solution (or a solution close to optimal) impossible.
 Given the targets, Entrofy may be able to correct biases introduced during the first step to a certain degree, but that is \textit{not} its intended purpose.
-However, categories where the targets are far away from the input set can be easily diagnosed from plots like shown in Figure~\ref{fig:entrofy_stats}, which can be generated by the \entrofy\ software package.
+However, categories where the targets are far away from the input set can be easily diagnosed from plots like shown in Fig~\ref{fig:entrofy_stats}, which can be generated by the \entrofy\ software package.
 In these cases, we suggest that organizers critically examine their initial recruitment and selection procedure for biases that could have resulted in generating a poorly representative set of meritorious candidates. For more practical advice for the application of Entrofy in realistic problems, see also the Supplementary Materials.
 
 
 %% be responsible in defining attributes
-Similarly, it is the selection committee's responsibility to define categories and targets that do not favour one group over another in ways that are misaligned with the goals of the selection.
+Similarly, it is the selection committee's responsibility to define categories and targets that do not favour one group over another in ways that are misaligned with the goals of the selection. For example, setting a minimum threshold on a particular skill or knowledge may systematically disadvantage certain categories of candidates if these candidates have had less access to opportunities to learn that skill or knowledge due to structural inequalities. 
 Overall, it is likely that this procedure is most useful to committees already sensitized to issues around diversity and committed to improving their procedures.
 In this case, objective gains made by employing Entrofy as part of the overall strategy may be limited, but as discussed above, usage of the software and algorithm may free up the committee's mental capacities for critically evaluating selection procedures.
 
@@ -620,6 +628,26 @@ However, in certain situations, blind review has been found to make selected gro
 This is especially the case for selection committees who already have a strong commitment to diversity and mechanisms in place to test for biases.
 In these cases, a blinded first step may not be the optimal approach.
 We note that using demographic criteria like race, gender, and other identity statuses protected under employment law as targets in hiring decisions may require legal counsel beyond the scope of this software review.
+
+%\subsection*{Use Cases}
+
+%In practice, scenarios involving cohort selection are often more complex than the recommendations above can encompass. Below, we introduce some potential use cases that might commonly be encountered and suggest possible strategies for cohort selection.
+
+%\subsubsection*{Cohort Selection with Stand-Out Candidates}
+
+%In certain cases, setting a single threshold during the first merit selection stage may not adequately reflect the reality of the selection problem. For example, there might be stand-out candidates whose qualifications so obviously exceed those of the candidate pool overall that they should definitely be accepted. 
+
+%Application forms can only probe a limited amount of knowledge about a given candidate. There might be candidates whose exact combination of skills or traits might not be fully captured by the selection process, but is so valuable to the workshop that their presence should be guaranteed (for example, Astro Hack Week admits three to four candidates we know to be excellent group facilitators and community builders). Instead of establishing a single threshold above which all candidates are considered of equal merit, one may instead use the results of the merit selection in more complex ways.
+
+%For example, given a grading procedure with a scoring system, organizers may decide that all candidates who receive top scores from all reviewers are automatically accepted. This requires scoring categories and rubrics to be well-calibrated: if the majority of available slots are filled with candidates preselected in this way, there is little scope for a balanced selection, and the rubrics should be reassessed in terms of whether they truly reflect the range of skills present in the candidates or whether a more fine-grained approach might be advisable. 
+
+%Similarly, one may encourage organizers to flag individual candidates whose overall profile suggest that they would be particularly valuable to the objectives of the workshop in ways that might not be fully captured by the selection procedure, and set aside a predefined number of available slots for candidates selected in this way. It is in the interest of the organizers to limit that number to a reasonably small fraction of the overall cohort, or the process will loose the benefits of the algorithmic procedure laid out in this manuscript. 
+
+%In either case, the preselected candidates and their attributes should still be taken into account during the algorithmic step of the selection. Instead of initializing the algorithm's first step e.g.\ at random, one may initialize the algorithm with the combined attributes of the preselected candidates. If the preselected cohort is strongly biased compared with the targets, \entrofy\ will aim to rebalance the overall cohort in this step of the procedure. In this way, accepting stand-out candidates outright can be straightforwardly combined with an algorithmic approach to generate a cohort that reflects both the variance in terms of merit in the candidate set, but is also balanced with respect to the overall targets and objectives of the selection committee.
+Note, however, the larger and more biased the preselected cohort is compared with the targets, the more likely it may be that finding an optimal subset becomes impossible. 
+
+%\subsubsection*{OTHERS???}
+
 
 \subsection*{Future work}
 %% future work: assessing long-term outcomes
@@ -748,7 +776,7 @@ However, research in academic cohort selection remains scarce and should be a pr
 
 %Sed non aliquet felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris commodo justo ac dui pretium imperdiet. Sed suscipit iaculis mi at feugiat. Ut neque ipsum, luctus id lacus ut, laoreet scelerisque urna. Phasellus venenatis, tortor nec vestibulum mattis, massa tortor interdum felis, nec pellentesque metus tortor nec nisl. Ut ornare mauris tellus, vel dapibus arcu suscipit sed. Nam condimentum sem eget mollis euismod. Nullam dui urna, gravida venenatis dui et, tincidunt sodales ex. Nunc est dui, sodales sed mauris nec, auctor sagittis leo. Aliquam tincidunt, ex in facilisis elementum, libero lectus luctus est, non vulputate nisl augue at dolor. For more information, see \nameref{S1_Appendix}.
 
-\section*{Supporting information}
+%\section*{Supporting information}
 
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
 %\paragraph*{S1 Fig.}
@@ -781,7 +809,7 @@ We are indebted to these researchers for their constructive feedback on the algo
 %\textbf{Funding:} DH, BM and LN acknowledge support by the Moore-Sloan Data Science Environment at NYU. DH was partially funded by the James Arthur Postdoctoral Fellowship at NYU. DH acknowledges support from the DIRAC Institute in the Department of Astronomy at the University of Washington. The DIRAC Institute is supported through generous gifts from the Charles and Lisa Simonyi Fund for Arts and Sciences, and the Washington Research Foundation\\
 %\textbf{Author Contributions} DH led the project and the writing, performed the experiments and the data analysis for both simulations and case study. BM developed the core algorithm and wrote the methods section. DH and BM co-wrote the associated software. LN provided social science context in the writing and obtained IRB permission for review of Astro Hack Week data. \\
 %\textbf{Competing Interests} The authors declare that they have no competing interests.\\
-%\textbf{Data and materials availability:} All data needed to evaluate the conclusions in the paper are present in the paper and/or the Supplementary Materials. The software tool accompanying this paper, along with additional simulations and all underlying code, is available at \url{https://github.com/dhuppenkothen/entrofy}. Additional data available from authors upon request. The full selection procedure for Astro Hack Week 2016 has been described in a blog post (\url{https://danielahuppenkothen.wordpress.com/2016/11/16/workshop-participant-selection-from-start-to-finish-an-example/}). Additionally, fully reproducible code exists for another conference~\url{https://github.com/dhuppenkothen/PyAstro17ParticipantSelection}.
+\textbf{Data and materials availability:} All data needed to evaluate the conclusions in the paper are present in the paper and/or the Supplementary Materials. The software tool accompanying this paper, along with additional simulations and all underlying code, is available at \url{https://github.com/dhuppenkothen/entrofy}. Additional data available from authors upon request. The full selection procedure for Astro Hack Week 2016 has been described in a blog post (\url{https://danielahuppenkothen.wordpress.com/2016/11/16/workshop-participant-selection-from-start-to-finish-an-example/}). Additionally, fully reproducible code exists for another conference~\url{https://github.com/dhuppenkothen/PyAstro17ParticipantSelection}.
 
 \nolinenumbers
 
